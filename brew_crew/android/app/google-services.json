@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1077472209691",
+    "project_id": "jack-brew-crew1",
+    "storage_bucket": "jack-brew-crew1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1077472209691:android:d56c0460f208cc17dd81be",
+        "android_client_info": {
+          "package_name": "com.jack.brew_crew1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCksiKQDO9RpQ8ejpCxMdb0tY3Kg5BXx30"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
