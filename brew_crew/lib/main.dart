@@ -12,7 +12,9 @@ Future<void> main() async {
   AuthService authService = AuthService();
   runApp(StreamProvider<MyUser?>.value(
     value: authService.user,
-    catchError: (_, __) {},
+    catchError: (_, __) {
+      return null;
+    },
     initialData: null,
     child: const MaterialApp(
       home: Wrapper(),

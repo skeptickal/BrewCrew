@@ -14,10 +14,12 @@ class SignIn extends StatefulWidget {
 
 class _SignInState extends State<SignIn> {
   final AuthService _auth = AuthService();
+  final _formKey = GlobalKey<FormState>();
 
   //text field state
   String email = '';
   String password = '';
+  String error = '';
 
   @override
   Widget build(BuildContext context) {
@@ -49,9 +51,11 @@ class _SignInState extends State<SignIn> {
             horizontal: 50,
           ),
           child: Form(
+            key: _formKey,
             child: Column(children: [
               const SizedBox(height: 20),
               TextFormField(
+                validator: (value) => value!.isEmpty ? 'Enter an email' : null,
                 onChanged: (value) {
                   setState(() {
                     email = value;
@@ -60,6 +64,9 @@ class _SignInState extends State<SignIn> {
               ),
               const SizedBox(height: 20),
               TextFormField(
+                validator: (value) => value!.length < 6
+                    ? 'Enter a password 6+ characters long'
+                    : null,
                 obscureText: true,
                 onChanged: (value) {
                   setState(() {
@@ -69,16 +76,26 @@ class _SignInState extends State<SignIn> {
               ),
               const SizedBox(height: 20),
               ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.pink[400]),
-                  onPressed: () {
-                    print(email);
-                    print(password);
-                  },
-                  child: const Text(
-                    'Sign In',
-                    style: TextStyle(color: Colors.white),
-                  ))
+                style:
+                    ElevatedButton.styleFrom(backgroundColor: Colors.pink[400]),
+                onPressed: () async {
+                  if (_formKey.currentState!.validate()) {
+                    print('valid');
+                    // if (result == null) {
+                    //   setState(() {
+                    //     error = 'please supply a valid email';
+                    //   });
+                    // }
+                  }
+                },
+                child: const Text(
+                  'Sign In',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+              const SizedBox(height: 20),
+              Text(error,
+                  style: const TextStyle(color: Colors.red, fontSize: 14.0))
             ]),
           )),
     );

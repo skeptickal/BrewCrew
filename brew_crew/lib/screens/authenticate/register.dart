@@ -92,8 +92,8 @@ class _RegisterState extends State<Register> {
                   style: TextStyle(color: Colors.white),
                 ),
               ),
-              SizedBox(height: 20),
-              Text(error, style: TextStyle(color: Colors.red, fontSize: 14.0))
+              const SizedBox(height: 20),
+              Text(error, style: const TextStyle(color: Colors.red, fontSize: 14.0))
             ]),
           )),
     );
