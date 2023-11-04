@@ -2,7 +2,7 @@ import 'package:brew_crew/services/auth.dart';
 import 'package:flutter/material.dart';
 
 class Register extends StatefulWidget {
-  final toggleView;
+  final dynamic toggleView;
 
   const Register({super.key, required this.toggleView});
 
@@ -12,9 +12,13 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
   final AuthService _auth = AuthService();
+  final _formKey = GlobalKey<FormState>();
+
   //text field state
   String email = '';
   String password = '';
+  String error = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +29,9 @@ class _RegisterState extends State<Register> {
         title: const Text('Sign up to Brew Crew'),
         actions: [
           TextButton.icon(
-            onPressed: () {},
+            onPressed: () {
+              widget.toggleView();
+            },
             label: const Text(
               'Sign In',
               style: TextStyle(color: Colors.black),
@@ -43,9 +49,11 @@ class _RegisterState extends State<Register> {
             horizontal: 50,
           ),
           child: Form(
+            key: _formKey,
             child: Column(children: [
               const SizedBox(height: 20),
               TextFormField(
+                validator: (value) => value!.isEmpty ? 'Enter an email' : null,
                 onChanged: (value) {
                   setState(() {
                     email = value;
@@ -55,6 +63,9 @@ class _RegisterState extends State<Register> {
               const SizedBox(height: 20),
               TextFormField(
                 obscureText: true,
+                validator: (value) => value!.length < 6
+                    ? 'Enter a password 6+ characters long'
+                    : null,
                 onChanged: (value) {
                   setState(() {
                     password = value;
@@ -63,17 +74,26 @@ class _RegisterState extends State<Register> {
               ),
               const SizedBox(height: 20),
               ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.pink[400]),
-                  onPressed: () async {
-                    widget.toggleView();
-                    print(email);
-                    print(password);
-                  },
-                  child: const Text(
-                    'Sign Up',
-                    style: TextStyle(color: Colors.white),
-                  ))
+                style:
+                    ElevatedButton.styleFrom(backgroundColor: Colors.pink[400]),
+                onPressed: () async {
+                  if (_formKey.currentState!.validate()) {
+                    dynamic result = await _auth.registerWithEmailAndPassword(
+                        email, password);
+                    if (result == null) {
+                      setState(() {
+                        error = 'please supply a valid email';
+                      });
+                    }
+                  }
+                },
+                child: const Text(
+                  'Sign Up',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+              SizedBox(height: 20),
+              Text(error, style: TextStyle(color: Colors.red, fontSize: 14.0))
             ]),
           )),
     );

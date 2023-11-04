@@ -4,7 +4,7 @@ import 'package:brew_crew/services/auth.dart';
 import 'package:flutter/material.dart';
 
 class SignIn extends StatefulWidget {
-  final toggleView;
+  final dynamic toggleView;
 
   const SignIn({super.key, required this.toggleView});
 
@@ -29,7 +29,9 @@ class _SignInState extends State<SignIn> {
         title: const Text('Sign in to Brew Crew'),
         actions: [
           TextButton.icon(
-            onPressed: () {},
+            onPressed: () {
+              widget.toggleView();
+            },
             label: const Text(
               'Sign Up',
               style: TextStyle(color: Colors.black),
@@ -70,7 +72,6 @@ class _SignInState extends State<SignIn> {
                   style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.pink[400]),
                   onPressed: () {
-                    widget.toggleView();
                     print(email);
                     print(password);
                   },
