@@ -1,4 +1,5 @@
 // ignore_for_file: avoid_print
+// todo for later: look at all these firebase methods
 
 import 'package:brew_crew/models/my_user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
