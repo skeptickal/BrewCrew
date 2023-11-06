@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_function_literals_in_foreach_calls, avoid_print
+
 import 'package:brew_crew/models/brew.dart';
 import 'package:brew_crew/screens/home/brew_tile.dart';
 import 'package:flutter/material.dart';

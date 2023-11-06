@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, use_build_context_synchronously
 
 import 'package:brew_crew/models/my_user.dart';
 import 'package:brew_crew/services/database.dart';
@@ -102,7 +102,7 @@ class _SettingsFormState extends State<SettingsForm> {
               ),
             );
           } else {
-            return Loading();
+            return const Loading();
           }
         });
   }

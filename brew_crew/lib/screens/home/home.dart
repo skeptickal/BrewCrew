@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, no_leading_underscores_for_local_identifiers
+
 import 'package:brew_crew/models/brew.dart';
 import 'package:brew_crew/screens/home/brew_list.dart';
 import 'package:brew_crew/screens/home/settings_form.dart';
@@ -25,7 +27,7 @@ class Home extends StatelessWidget {
 
     return StreamProvider<List<Brew>>.value(
       value: DatabaseService().brews,
-      initialData: [],
+      initialData: const [],
       child: Scaffold(
         backgroundColor: Colors.brown[50],
         appBar: AppBar(
@@ -50,11 +52,21 @@ class Home extends StatelessWidget {
                 Icons.settings,
                 color: Colors.black,
               ),
-              label: const Text('Settings', style: TextStyle(color: Colors.black)),
+              label:
+                  const Text('Settings', style: TextStyle(color: Colors.black)),
             )
           ],
         ),
-        body: const BrewList(),
+        body: Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: const AssetImage(
+                  'assets/coffee_bg.png',
+                ),
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: const BrewList()),
       ),
     );
   }
