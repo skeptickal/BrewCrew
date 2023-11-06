@@ -34,68 +34,66 @@ class _SettingsFormState extends State<SettingsForm> {
             MyUserData? myUserData = snapshot.data;
             return Form(
               key: _formKey,
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    const Text(
-                      'Update your brew settings',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                    const SizedBox(height: 20),
-                    TextFormField(
-                      initialValue: myUserData?.name,
-                      decoration: textInputDecoration,
-                      validator: (value) =>
-                          value!.isNotEmpty ? 'Please enter a name' : null,
-                      onChanged: (value) {
-                        setState(() {
-                          _currentName = value;
-                        });
+              child: Column(
+                children: [
+                  const Text(
+                    'Update your brew settings',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  const SizedBox(height: 20),
+                  TextFormField(
+                    initialValue: myUserData?.name,
+                    decoration: textInputDecoration,
+                    validator: (value) =>
+                        value!.isNotEmpty ? 'Please enter a name' : null,
+                    onChanged: (value) {
+                      setState(() {
+                        _currentName = value;
+                      });
+                    },
+                  ),
+                  const SizedBox(height: 20),
+                  //dropdown
+                  DropdownButtonFormField<String>(
+                    decoration: textInputDecoration,
+                    value: myUserData?.sugars,
+                    items: sugars.map((sugar) {
+                      return DropdownMenuItem(
+                        value: sugar,
+                        child: Text("$sugar sugars"),
+                      );
+                    }).toList(),
+                    onChanged: (val) => setState(() => _currentSugars = val!),
+                  ),
+                  //slider
+                  Slider(
+                    min: 100,
+                    max: 900,
+                    divisions: 8,
+                    activeColor:
+                        Colors.brown[_currentStrength ?? myUserData!.strength],
+                    inactiveColor:
+                        Colors.brown[_currentStrength ?? myUserData!.strength],
+                    value:
+                        (_currentStrength ?? myUserData!.strength).toDouble(),
+                    onChanged: (val) =>
+                        setState(() => _currentStrength = val.round()),
+                  ),
+                  ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.pink),
+                      onPressed: () async {
+                        await DatabaseService(uid: user.uid).updateUserData(
+                            _currentName ?? snapshot.data!.name,
+                            _currentStrength ?? snapshot.data!.strength,
+                            _currentSugars ?? snapshot.data!.sugars);
+                        Navigator.pop(context);
                       },
-                    ),
-                    const SizedBox(height: 20),
-                    //dropdown
-                    DropdownButtonFormField<String>(
-                      decoration: textInputDecoration,
-                      value: myUserData?.sugars,
-                      items: sugars.map((sugar) {
-                        return DropdownMenuItem(
-                          value: sugar,
-                          child: Text("$sugar sugars"),
-                        );
-                      }).toList(),
-                      onChanged: (val) => setState(() => _currentSugars = val!),
-                    ),
-                    //slider
-                    Slider(
-                      min: 100,
-                      max: 900,
-                      divisions: 8,
-                      activeColor: Colors
-                          .brown[_currentStrength ?? myUserData!.strength],
-                      inactiveColor: Colors
-                          .brown[_currentStrength ?? myUserData!.strength],
-                      value:
-                          (_currentStrength ?? myUserData!.strength).toDouble(),
-                      onChanged: (val) =>
-                          setState(() => _currentStrength = val.round()),
-                    ),
-                    ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.pink),
-                        onPressed: () async {
-                          await DatabaseService(uid: user.uid).updateUserData(
-                              _currentName ?? snapshot.data!.name,
-                              _currentStrength ?? snapshot.data!.strength,
-                              _currentSugars ?? snapshot.data!.sugars);
-                          Navigator.pop(context);
-                        },
-                        child: const Text(
-                          'Update',
-                          style: TextStyle(color: Colors.white),
-                        ))
-                  ],
-                ),
+                      child: const Text(
+                        'Update',
+                        style: TextStyle(color: Colors.white),
+                      ))
+                ],
               ),
             );
           } else {
