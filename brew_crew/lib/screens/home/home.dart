@@ -17,8 +17,8 @@ class Home extends StatelessWidget {
           context: context,
           builder: (context) {
             return Container(
-              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 60),
-              child: SettingsForm(),
+              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 60),
+              child: const SettingsForm(),
             );
           });
     }
@@ -46,15 +46,15 @@ class Home extends StatelessWidget {
             ),
             TextButton.icon(
               onPressed: () => _showSettingsPanel(context),
-              icon: Icon(
+              icon: const Icon(
                 Icons.settings,
                 color: Colors.black,
               ),
-              label: Text('Settings', style: TextStyle(color: Colors.black)),
+              label: const Text('Settings', style: TextStyle(color: Colors.black)),
             )
           ],
         ),
-        body: BrewList(),
+        body: const BrewList(),
       ),
     );
   }
