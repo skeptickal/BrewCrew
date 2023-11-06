@@ -26,5 +26,5 @@ To get started with BrewCrew, follow these steps:
     flutter pub get
 
 3. Run the app:
-    ```bash```
+    ```bash
     flutter run
