@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class SettingsForm extends StatefulWidget {
-  const SettingsForm({Key? key}) : super(key: key);
+  const SettingsForm({super.key});
 
   @override
   State<SettingsForm> createState() => _SettingsFormState();
