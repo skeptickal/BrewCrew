@@ -1,4 +1,5 @@
 // ignore_for_file: avoid_print, use_build_context_synchronously
+//todo (done) congfigured macbook to use app
 
 import 'package:brew_crew/models/my_user.dart';
 import 'package:brew_crew/services/database.dart';
